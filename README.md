@@ -22,7 +22,7 @@ cd linux-packages/aur/anyps5-desktop-bin
 makepkg -si
 ```
 
-The launcher still looks for new releases itself. On a package install it can only download the release archive and show it, so turn off **Settings → Behaviour → Check for updates** and let pacman or your AUR helper update it. Settings, logs, caches and downloaded engines live in `~/.config/AnyPS5`, `~/.local/state/AnyPS5`, `~/.cache/AnyPS5` and `~/.local/share/AnyPS5` and stay when the package is removed.
+The launcher still looks for new releases itself. Releases after 0.1.20 see that pacman owns them: they say when a new version is out and leave the update to pacman or your AUR helper, without downloading anything. On 0.1.20 its update only downloads the release archive and shows it, so there turn off **Settings → Behaviour → Check for updates**. Settings, logs, caches and downloaded engines live in `~/.config/AnyPS5`, `~/.local/state/AnyPS5`, `~/.cache/AnyPS5` and `~/.local/share/AnyPS5` and stay when the package is removed.
 
 ## How the packages stay current
 
