@@ -1,0 +1,25 @@
+name: Test
+
+# Builds every AUR package here in an Arch Linux container, checks it with namcap and against
+# its .SRCINFO, installs it, checks that its libraries resolve and removes it again.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Tools
+        run: pacman -Syu --noconfirm --needed git >/dev/null
+
+      - uses: actions/checkout@v4
+
+      - name: anyps5-desktop-bin
+        run: bash .github/scripts/aur-test.sh aur/anyps5-desktop-bin

@@ -1,0 +1,50 @@
+name: Update packages
+
+# Follows the latest stable AnyPS5 Desktop release (GitHub's "latest", never a nightly
+# pre-release) and moves aur/anyps5-desktop-bin to it: pkgver, the .deb's SHA-256 (checked
+# against the release's SHA256SUMS) and .SRCINFO. The new package is built, checked and
+# installed in an Arch Linux container before it is pushed.
+on:
+  schedule:
+    - cron: "47 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-packages
+  cancel-in-progress: false
+
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Tools
+        run: pacman -Syu --noconfirm --needed git jq base-devel >/dev/null
+
+      - uses: actions/checkout@v4
+
+      - name: Check the latest release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          bash .github/scripts/aur-bump.sh
+
+      - name: Build, check and install
+        if: steps.release.outputs.version
+        run: bash .github/scripts/aur-test.sh aur/anyps5-desktop-bin
+
+      - name: Push
+        if: steps.release.outputs.version
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add aur/anyps5-desktop-bin/PKGBUILD aur/anyps5-desktop-bin/.SRCINFO
+          git commit -m "anyps5-desktop-bin $VERSION"
+          git push
