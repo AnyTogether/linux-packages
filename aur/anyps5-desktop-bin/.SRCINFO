@@ -5,6 +5,7 @@ pkgbase = anyps5-desktop-bin
 	url = https://github.com/AnyTogether/AnyPS5-Desktop
 	arch = x86_64
 	license = GPL-2.0-only
+	makedepends = patchelf
 	depends = alsa-lib
 	depends = at-spi2-core
 	depends = cairo

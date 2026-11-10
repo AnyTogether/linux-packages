@@ -54,6 +54,10 @@ if [ -n "$missing" ]; then
   exit 1
 fi
 echo "Every library resolves"
+if find /opt/anyps5-desktop -type f -name '*.so' -exec readelf -d {} + | grep -E 'R(UN)?PATH' | grep -q '/home/'; then
+  echo "::error::A library still looks for libraries under /home"
+  exit 1
+fi
 pacman -Qi "$name" | sed -n '1,3p'
 echo "::endgroup::"
 

@@ -43,6 +43,7 @@ depends=(
   'wayland'
   'xdg-utils'
 )
+makedepends=('patchelf')
 optdepends=(
   'ffmpeg: clips, broadcasting and Remote Play'
   'libsecret: keeps the AnyTogether sign-in in the keyring (secret-tool)'
@@ -61,4 +62,13 @@ package() {
   # icons and the application/x-anyps5theme MIME type. The launcher sees it lives in
   # /opt/anyps5-desktop and leaves anyps5:// links to this desktop entry.
   bsdtar -xOf "$_pkgname-$pkgver.deb" 'data.tar.*' | bsdtar -xpf - -C "$pkgdir" --no-same-owner
+
+  # Some plugin libraries keep the release build's own folders (/home/runner/...) in their
+  # RUNPATH. What they link sits beside them, so $ORIGIN is all they need.
+  local lib
+  for lib in "$pkgdir"/opt/anyps5-desktop/lib/*.so; do
+    case "$(patchelf --print-rpath "$lib")" in
+      */home/*) patchelf --set-rpath '$ORIGIN' "$lib" ;;
+    esac
+  done
 }
