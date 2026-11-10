@@ -42,10 +42,12 @@ test "$(readlink -f /usr/bin/anyps5-desktop)" = /opt/anyps5-desktop/anyps5_deskt
 desktop-file-validate /usr/share/applications/anyps5-desktop.desktop
 test -f /usr/share/icons/hicolor/512x512/apps/anyps5-desktop.png
 test -f /usr/share/mime/packages/anyps5-desktop.xml
-# Every library the launcher and its bundled libraries link resolves. libdartjni.so (package:jni,
-# pulled in by a dependency) needs a JVM only when Java is called, which the launcher never does.
+# Every library the launcher and its bundled libraries link resolves, with the bundle's lib/ on
+# the search path as the launcher's RUNPATH ($ORIGIN/lib) puts it at run time. libdartjni.so
+# (package:jni, pulled in by a dependency) needs a JVM only when Java is called, which the
+# launcher never does.
 missing="$(find /opt/anyps5-desktop -type f \( -name anyps5_desktop -o -name '*.so' -o -name '*.so.*' \) \
-  -exec ldd {} + 2>&1 | grep 'not found' | grep -v 'libjvm\.so' || true)"
+  -exec env LD_LIBRARY_PATH=/opt/anyps5-desktop/lib ldd {} + 2>&1 | grep 'not found' | grep -v 'libjvm\.so' || true)"
 if [ -n "$missing" ]; then
   echo "::error::Libraries that do not resolve:"
   echo "$missing"
