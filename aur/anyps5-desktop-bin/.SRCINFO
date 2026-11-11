@@ -1,7 +1,7 @@
 pkgbase = anyps5-desktop-bin
 	pkgdesc = PS5-style launcher for AnyPS5: finds PS5 game dumps, unlocks them with the AnyPS5 engine and starts them
-	pkgver = 0.1.20
-	pkgrel = 2
+	pkgver = 0.1.21
+	pkgrel = 1
 	url = https://github.com/AnyTogether/AnyPS5-Desktop
 	arch = x86_64
 	license = GPL-2.0-only
@@ -45,10 +45,10 @@ pkgbase = anyps5-desktop-bin
 	optdepends = noto-fonts-cjk: Chinese, Japanese and Korean text
 	provides = anyps5-desktop
 	conflicts = anyps5-desktop
-	noextract = anyps5-desktop-0.1.20.deb
+	noextract = anyps5-desktop-0.1.21.deb
 	options = !strip
 	options = !debug
-	source = anyps5-desktop-0.1.20.deb::https://github.com/AnyTogether/AnyPS5-Desktop/releases/download/v0.1.20/anyps5-desktop_0.1.20_amd64.deb
-	sha256sums = 79f2bb771c528a928d5d1ef5554a82ea1d4526d446f23a756fb17a52c537e873
+	source = anyps5-desktop-0.1.21.deb::https://github.com/AnyTogether/AnyPS5-Desktop/releases/download/v0.1.21/anyps5-desktop_0.1.21_amd64.deb
+	sha256sums = 0c78b64c9160c583c3a3c0aa091d2b66375653b6a6be18b5958b7b4bf00b0c93
 
 pkgname = anyps5-desktop-bin
