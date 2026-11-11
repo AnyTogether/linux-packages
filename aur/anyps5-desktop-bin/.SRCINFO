@@ -1,7 +1,7 @@
 pkgbase = anyps5-desktop-bin
 	pkgdesc = PS5-style launcher for AnyPS5: finds PS5 game dumps, unlocks them with the AnyPS5 engine and starts them
 	pkgver = 0.1.20
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/AnyTogether/AnyPS5-Desktop
 	arch = x86_64
 	license = GPL-2.0-only
@@ -35,6 +35,7 @@ pkgbase = anyps5-desktop-bin
 	depends = libxss
 	depends = libxxf86vm
 	depends = mesa
+	depends = mpv
 	depends = pango
 	depends = wayland
 	depends = xdg-utils

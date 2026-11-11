@@ -3,12 +3,14 @@
 pkgname=anyps5-desktop-bin
 _pkgname=anyps5-desktop
 pkgver=0.1.20
-pkgrel=1
+pkgrel=2
 pkgdesc='PS5-style launcher for AnyPS5: finds PS5 game dumps, unlocks them with the AnyPS5 engine and starts them'
 arch=('x86_64')
 url='https://github.com/AnyTogether/AnyPS5-Desktop'
 license=('GPL-2.0-only')
-# The libraries the launcher, its plugins, libwebrtc and the bundled SDL2 link directly.
+# The libraries the launcher, its plugins, libwebrtc and the bundled SDL2 link directly, and
+# mpv for libmpv (libmpv.so.2), which the clip player and the voice notes open at run time: the
+# launcher (GPL-2.0-only) carries no libmpv of its own from 0.1.21 on.
 depends=(
   'alsa-lib'
   'at-spi2-core'
@@ -39,6 +41,7 @@ depends=(
   'libxss'
   'libxxf86vm'
   'mesa'
+  'mpv'
   'pango'
   'wayland'
   'xdg-utils'

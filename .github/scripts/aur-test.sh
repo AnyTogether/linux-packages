@@ -54,6 +54,14 @@ if [ -n "$missing" ]; then
   exit 1
 fi
 echo "Every library resolves"
+# The clip player opens the system's libmpv at run time (no library links it): mpv, a dependency,
+# has to have put libmpv.so.2 where the loader finds it.
+ldconfig
+if ! ldconfig -p | grep -q 'libmpv\.so\.2 '; then
+  echo "::error::No libmpv.so.2 after installing the package (its mpv dependency)"
+  exit 1
+fi
+echo "libmpv: $(ldconfig -p | grep -m1 'libmpv\.so\.2 ')"
 if find /opt/anyps5-desktop -type f -name '*.so' -exec readelf -d {} + | grep -E 'R(UN)?PATH' | grep -q '/home/'; then
   echo "::error::A library still looks for libraries under /home"
   exit 1
