@@ -2,7 +2,7 @@
 
 pkgname=anyps5-desktop-bin
 _pkgname=anyps5-desktop
-pkgver=0.1.21
+pkgver=0.1.22
 pkgrel=1
 pkgdesc='PS5-style launcher for AnyPS5: finds PS5 game dumps, unlocks them with the AnyPS5 engine and starts them'
 arch=('x86_64')
@@ -58,7 +58,7 @@ conflicts=("$_pkgname")
 options=('!strip' '!debug')
 source=("$_pkgname-$pkgver.deb::$url/releases/download/v$pkgver/${_pkgname}_${pkgver}_amd64.deb")
 noextract=("$_pkgname-$pkgver.deb")
-sha256sums=('0c78b64c9160c583c3a3c0aa091d2b66375653b6a6be18b5958b7b4bf00b0c93')
+sha256sums=('fe748af736c7a7ba1f8987429a55880b19d242b735c73cfaf577cc64004fbf4f')
 
 package() {
   # The release's .deb: /opt/anyps5-desktop, /usr/bin/anyps5-desktop, the desktop entry, the
